@@ -6,7 +6,7 @@
  * 
  * 模块化重构版本，支持浏览器直接引入和CommonJS模块
  */
-(function(root, factory) {
+(function (root, factory) {
     if (typeof define === 'function' && define.amd) {
         // AMD
         define([], factory);
@@ -17,13 +17,13 @@
         // 浏览器全局
         root.oidc = factory();
     }
-})(typeof self !== 'undefined' ? self : this, function() {
+})(typeof self !== 'undefined' ? self : this, function () {
     /**
      * Core Module
      */
-    const Core = (function() {
+    const Core = (function () {
         const _ver = '1.3.5';
-        const _site = 'www.oidc.org.cn';
+        const _site = 'oidc.org.cn';
         let _base = '';
         let _key = '';
         let _mode = 'web';
@@ -34,17 +34,17 @@
 
         function log(txt, level = 'info') {
             if (!_log) return;
-            
+
             // 根据日志级别过滤
             const levels = { debug: 0, info: 1, warn: 2, error: 3 };
             const currentLevel = levels[_logLevel] || 1;
             const msgLevel = levels[level] || 1;
-            
+
             if (msgLevel < currentLevel) return;
 
             const timestamp = new Date().toISOString();
             const prefix = `[OIDC][${level.toUpperCase()}][${timestamp}]`;
-            
+
             switch (level) {
                 case 'error':
                     console.error(prefix, txt);
@@ -68,7 +68,7 @@
 
         function initConfig(appKey, option) {
             log('========== 开始初始化核心配置 ==========', 'info');
-            
+
             // 验证appKey
             if (!appKey) {
                 log('错误：appKey为空！', 'error');
@@ -83,16 +83,14 @@
                 option = {};
             }
             _option = option;
-            
+
             // 设置日志级别
             _log = !!option.log;
             _logLevel = option.logLevel || 'info';
             log(`日志状态: ${_log}, 日志级别: ${_logLevel}`, 'debug');
 
             // 设置协议和基础URL
-            const https = (!option.https) ? '' : 's';
-            _base = `http${https}://` + _site;
-            log(`基础URL: ${_base}`, 'info');
+            this.initHttp();
 
             // 设置模式
             _mode = (option.mode || 'web').toLowerCase();
@@ -120,40 +118,51 @@
             version: _ver,
             log,
             getBaseUrl: () => _base,
-            setBaseUrl: (base) => { 
+            setBaseUrl: (base) => {
                 log(`基础URL变更: ${_base} -> ${base}`, 'info');
-                _base = base; 
+                _base = base;
             },
             getKey: () => _key,
-            setKey: (key) => { 
+            setKey: (key) => {
                 log(`appKey变更: ${_key} -> ${key}`, 'info');
-                _key = key; 
+                _key = key;
             },
             getMode: () => _mode,
-            setMode: (mode) => { 
+            setMode: (mode) => {
                 log(`模式变更: ${_mode} -> ${mode}`, 'info');
-                _mode = mode; 
+                _mode = mode;
             },
             getOption: () => _option,
-            setOption: (option) => { 
+            setOption: (option) => {
                 log(`选项变更: ${JSON.stringify(_option)} -> ${JSON.stringify(option)}`, 'debug');
-                _option = option; 
-                _log = !!option.log; 
+                _option = option;
+                _log = !!option.log;
             },
             getTarget: () => _target,
-            setTarget: (target) => { 
+            setTarget: (target) => {
                 log(`打开方式变更: ${_target} -> ${target}`, 'info');
-                _target = target; 
+                _target = target;
             },
             getOAuthUrl,
-            initConfig
+            initConfig,
+            initHttp: function () {
+                if (!_base) {
+                    let protocol = (window.location.protocol || 'http:').toLowerCase();
+                    if (!protocol.startsWith('http')) {
+                        protocol = 'https:';
+                    }
+
+                    _base = protocol + '//' + _site;
+                    log(`URL初始化: ${_base}`, 'info');
+                }
+            }
         };
     })();
 
     /**
      * DOM Module
      */
-    const Dom = (function() {
+    const Dom = (function () {
         function $(id) {
             return document.getElementById(id);
         }
@@ -225,13 +234,13 @@
     /**
      * Network Module
      */
-    const Network = (function(core) {
+    const Network = (function (core) {
         function ajax(data, success, failure) {
             if (!data) return;
             const xhr = new XMLHttpRequest();
             xhr.open(data.method, data.url, true);
 
-            xhr.onload = function() {
+            xhr.onload = function () {
                 if (xhr.status < 200 || xhr.status >= 300) {
                     console.error('请求失败:', xhr.statusText);
                     return;
@@ -254,9 +263,9 @@
         function listOsp(callback) {
             const url = core.getOAuthUrl("Osp?key=" + core.getKey());
             core.log("listOsp:" + url);
-            get(url, function(result) {
+            get(url, function (result) {
                 if (result && callback) callback(result.data);
-            }, function(error) {
+            }, function (error) {
                 core.log("listOsp:" + error);
             });
         }
@@ -277,13 +286,13 @@
             if (tmp.length > 0) url += "?" + tmp.substring(1);
             core.log('handshake:' + url);
 
-            get(url, function(result) {
+            get(url, function (result) {
                 if (!result || !result.success) {
                     if (result) core.log(result.message);
                     return;
                 }
                 if (callback) callback(result.ticket);
-            }, function(error) {
+            }, function (error) {
                 core.log("handshake:" + error);
             });
         }
@@ -294,7 +303,7 @@
     /**
      * Crypto Module
      */
-    const Crypto = (function() {
+    const Crypto = (function () {
         function md5(string, key, raw) {
             function safeAdd(x, y) {
                 const lsw = (x & 0xffff) + (y & 0xffff);
@@ -454,7 +463,7 @@
     /**
      * Task Module
      */
-    const Task = (function(core, network, crypto) {
+    const Task = (function (core, network, crypto) {
         let _timer = null;
         let _steps = 0;
 
@@ -474,8 +483,8 @@
         function listen(ticket) {
             const digest = crypto.md5(ticket.nonce + ':' + ticket.salt);
             const url = core.getOAuthUrl(`listen?client_id=${core.getKey()}&ticket=${ticket.code}&digest=${digest}`);
-            
-            network.get(url, function(result) {
+
+            network.get(url, function (result) {
                 if (!result || !result.success) {
                     if (result) core.log(result.message);
                     return;
@@ -500,7 +509,7 @@
     /**
      * UI Module
      */
-    const UI = (function(core, dom) {
+    const UI = (function (core, dom) {
         let _root, _dialog, _iframe;
         let isDragging = false, currentX = 0, currentY = 0, initialX = 0, initialY = 0;
 
@@ -674,7 +683,7 @@
     /**
      * Auth Module
      */
-    const Auth = (function(core, ui, network, task) {
+    const Auth = (function (core, ui, network, task) {
         function buildParams() {
             let tmp = "";
             const key = core.getKey();
@@ -687,26 +696,26 @@
             } else {
                 core.log('警告：client_id为空', 'warn');
             }
-            
+
             if (option.response_type) {
                 tmp += "&response_type=" + option.response_type;
                 params.push(`response_type=${option.response_type}`);
             } else {
                 core.log('警告：response_type为空', 'warn');
             }
-            
+
             if (option.redirect_uri) {
                 tmp += "&redirect_uri=" + encodeURIComponent(option.redirect_uri);
                 params.push(`redirect_uri=${option.redirect_uri}`);
             } else {
                 core.log('警告：redirect_uri为空', 'warn');
             }
-            
+
             if (option.state) {
                 tmp += "&state=" + encodeURIComponent(option.state);
                 params.push(`state=${option.state}`);
             }
-            
+
             if (option.scope) {
                 tmp += "&scope=" + encodeURIComponent(option.scope);
                 params.push(`scope=${option.scope}`);
@@ -736,7 +745,7 @@
                 url += "/authorizeA/" + code;
                 pathType = `第三方授权(${code})`;
             }
-            
+
             core.log(`获取授权路径: ${url} [${pathType}]`, 'debug');
             return url;
         }
@@ -759,7 +768,7 @@
                 url += "/LoginA/" + code;
                 pathType = `第三方登录(${code})`;
             }
-            
+
             core.log(`获取登录路径: ${url} [${pathType}]`, 'debug');
             return url;
         }
@@ -772,19 +781,19 @@
                 core.log('目标为none，不执行跳转', 'warn');
                 return;
             }
-            
+
             if (target == 'dialog') {
                 core.log('使用dialog方式打开', 'info');
                 ui.showDialog(url);
                 return;
             }
-            
+
             if (target == 'tab' || target == '_blank') {
                 core.log('使用新标签页打开', 'info');
                 ui.showTab(url);
                 return;
             }
-            
+
             if (target == 'window') {
                 core.log('使用弹窗打开', 'info');
                 ui.showWindow(url);
@@ -802,11 +811,11 @@
 
             let url = getUrlPath(code);
             const params = buildParams();
-            
+
             if (params.length > 0) {
                 url += "?" + params.substring(1);
             }
-            
+
             core.log(`最终授权URL: ${url}`, 'info');
             openUrl(url);
             core.log('========== Web模式授权流程结束 ==========', 'info');
@@ -818,11 +827,11 @@
 
             let url = getLoginUrlPath(code);
             const params = buildParams();
-            
+
             if (params.length > 0) {
                 url += "?" + params.substring(1);
             }
-            
+
             core.log(`最终登录URL: ${url}`, 'info');
             openUrl(url);
             core.log('========== Web模式登录流程结束 ==========', 'info');
@@ -836,15 +845,15 @@
                     core.log('错误：握手失败，未获取到ticket', 'error');
                     return;
                 }
-                
+
                 core.log(`握手成功，ticket: ${ticket.code}`, 'debug');
-                
+
                 const url = core.getOAuthUrl("authorizeB?ticket=" + ticket.code);
                 core.log(`授权URL: ${url}`, 'info');
-                
+
                 window.open(url, "_blank");
                 core.log('已打开授权窗口', 'info');
-                
+
                 core.log('开始监听登录状态', 'info');
                 task.runListen(ticket);
                 core.log('========== SPA模式授权流程结束 ==========', 'info');
@@ -860,15 +869,15 @@
                     core.log('错误：握手失败，未获取到ticket', 'error');
                     return;
                 }
-                
+
                 core.log(`握手成功，ticket: ${ticket.code}`, 'debug');
-                
+
                 const url = core.getOAuthUrl(`LoginB/${code}?ticket=${ticket.code}`);
                 core.log(`登录URL: ${url}`, 'info');
-                
+
                 window.open(url, "_blank");
                 core.log('已打开登录窗口', 'info');
-                
+
                 core.log('开始监听登录状态', 'info');
                 task.runListen(ticket);
                 core.log('========== SPA模式登录流程结束 ==========', 'info');
@@ -894,8 +903,11 @@
 
     function load(appKey, callback) {
         if (!appKey) { Core.log('无效的应用代码！'); return; }
+
+        Core.initHttp();
+
         Core.setKey(appKey);
-        Network.listOsp(function(data) { _ospList = data; if (callback) callback(data); });
+        Network.listOsp(function (data) { _ospList = data; if (callback) callback(data); });
     }
 
     function init(appKey, container, option) {
@@ -911,7 +923,7 @@
         if (!root) return;
 
         if (_ospList) UI.showData(_ospList, root);
-        else Network.listOsp(function(data) { _ospList = data; UI.showData(data, root); });
+        else Network.listOsp(function (data) { _ospList = data; UI.showData(data, root); });
     }
 
     return {

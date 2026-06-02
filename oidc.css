@@ -25,20 +25,20 @@
     width: 600px;
     background: white;
     border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
     z-index: 1000;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
 
-    .oidc-dialog iframe {
-        border: 0px;
-        width: 100%;
-        min-height: 20rem;
-        margin: 0px;
-        padding: 0px;
-    }
+.oidc-dialog iframe {
+    border: 0px;
+    width: 100%;
+    min-height: 20rem;
+    margin: 0px;
+    padding: 0px;
+}
 
 .oidc-dialog-head {
     background: #2196F3;
@@ -51,28 +51,28 @@
     padding: 10px 10px;
 }
 
-    .oidc-dialog-head .title {
-        user-select: none;
-        flex: 100%;
-    }
+.oidc-dialog-head .title {
+    user-select: none;
+    flex: 100%;
+}
 
-    .oidc-dialog-head .close {
-        display: block;
-        width: 21px;
-        height: 21px;
-        background-color: brown;
-        text-align: center;
-        border: 1px solid var(--oidc-border-color);
-        border-radius: 3px;
-        padding: 0px;
-    }
+.oidc-dialog-head .close {
+    display: block;
+    width: 21px;
+    height: 21px;
+    background-color: brown;
+    text-align: center;
+    border: 1px solid var(--oidc-border-color);
+    border-radius: 3px;
+    padding: 0px;
+}
 
-        .oidc-dialog-head .close:hover {
-            background-color: red;
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-        }
+.oidc-dialog-head .close:hover {
+    background-color: red;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
 
 .oidc-dialog-body {
     min-height: 100px;
@@ -94,7 +94,8 @@
     background-color: var(--oidc-background-color);
 }
 
-.oidc-card_head, .oidc-card_foot {
+.oidc-card_head,
+.oidc-card_foot {
     padding: 0.5rem;
 }
 
@@ -105,6 +106,7 @@
 
 .oidc-card_body {
     padding: 1rem;
+    overflow: hidden;
 }
 
 .oidc-card_foot {
@@ -134,39 +136,39 @@
     margin: 5px;
 }
 
-    .oidc-list-item:hover {
-        background-color: aliceblue;
-    }
+.oidc-list-item:hover {
+    background-color: aliceblue;
+}
 
-    .oidc-list-item .logo {
-        width: 24px;
-        height: 24px;
-    }
+.oidc-list-item .logo {
+    width: 24px;
+    height: 24px;
+}
 
-        .oidc-list-item .logo > img {
-            display: block;
-            height: 100%;
-            width: 100%;
-            border-radius: .25rem !important;
-        }
+.oidc-list-item .logo>img {
+    display: block;
+    height: 100%;
+    width: 100%;
+    border-radius: .25rem !important;
+}
 
-    .oidc-list-item .line {
-        width: 1px;
-        height: 22px;
-        content: " ";
-        background-color: #e7e9eb;
-    }
+.oidc-list-item .line {
+    width: 1px;
+    height: 22px;
+    content: " ";
+    background-color: #e7e9eb;
+}
 
-    .oidc-list-item .text {
-        flex: 1;
-    }
+.oidc-list-item .text {
+    flex: 1;
+}
 
-    .oidc-list-item .tips {
-        color: #BBB;
-        font-size: 10px;
-        white-space: nowrap;
-        overflow: hidden;
-    }
+.oidc-list-item .tips {
+    color: #BBB;
+    font-size: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+}
 
 /**Icon风格样式*/
 .oidc-data-icon {
@@ -186,22 +188,22 @@
     align-items: center;
 }
 
-    .oidc-list-icon:hover {
-        border: var(--oidc-border-width) solid var(--oidc-border-color);
-    }
+.oidc-list-icon:hover {
+    border: var(--oidc-border-width) solid var(--oidc-border-color);
+}
 
-    .oidc-list-icon .logo {
-        text-align: center;
-        width: 24px;
-        height: 24px;
-    }
+.oidc-list-icon .logo {
+    text-align: center;
+    width: 24px;
+    height: 24px;
+}
 
-        .oidc-list-icon .logo > img {
-            display: block;
-            width: 100%;
-            height: 100%;
-            border-radius: .25rem !important;
-        }
+.oidc-list-icon .logo>img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: .25rem !important;
+}
 
 /**Card风格样式*/
 .oidc-data-card {
@@ -220,34 +222,34 @@
     align-items: center;
 }
 
-    .oidc-list-card:hover {
-        border: var(--oidc-border-width) solid var(--oidc-border-color);
-    }
+.oidc-list-card:hover {
+    border: var(--oidc-border-width) solid var(--oidc-border-color);
+}
 
-    .oidc-list-card .logo {
-        text-align: center;
-        width: 32px;
-        height: 32px;
-    }
+.oidc-list-card .logo {
+    text-align: center;
+    width: 32px;
+    height: 32px;
+}
 
-        .oidc-list-card .logo > img {
-            display: block;
-            width: 100%;
-            height: 100%;
-            border-radius: .25rem !important;
-        }
+.oidc-list-card .logo>img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: .25rem !important;
+}
 
-    .oidc-list-card .text {
-        margin-top: 10px;
-        border: 1px solid #f8f8f8;
-        line-height: 20px;
-        border-radius: 3px;
-        background-color: #fafafa;
-        width: 100%;
-        word-wrap: normal;
-        overflow: hidden;
-    }
+.oidc-list-card .text {
+    margin-top: 10px;
+    border: 1px solid #f8f8f8;
+    line-height: 20px;
+    border-radius: 3px;
+    background-color: #fafafa;
+    width: 100%;
+    word-wrap: normal;
+    overflow: hidden;
+}
 
-    .oidc-list-card .tips {
-        display: none;
-    }
+.oidc-list-card .tips {
+    display: none;
+}

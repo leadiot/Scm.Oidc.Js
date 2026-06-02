@@ -374,33 +374,35 @@ oidc.endListen();</pre>
     <script type="text/javascript" src="oidc.js" charset="utf-8"></script>
     <script type="text/javascript">
         var appKey = "08dc5d527578a465";
-        // 示例1: 图标模式
-        oidc.init(appKey, "oidc-demo1", {
-            style: 'icon',
-            align: 'center',
-            target: 'dialog',
-            log: true,
-            logLevel: 'info',
-            success: function (user) {
-                showStatus('登录成功: ' + JSON.stringify(user), 'success');
-            }
-        });
+        oidc.load(appKey, function (ospList) {
+            // 示例1: 图标模式
+            oidc.init(appKey, "oidc-demo1", {
+                style: 'icon',
+                align: 'center',
+                target: 'dialog',
+                log: true,
+                logLevel: 'info',
+                success: function (user) {
+                    showStatus('登录成功: ' + JSON.stringify(user), 'success');
+                }
+            });
 
-        // 示例2: 卡片模式
-        oidc.init(appKey, "oidc-demo2", {
-            style: 'card',
-            columns: 3,
-            target: 'tab',
-            log: true,
-            logLevel: 'info'
-        });
+            // 示例2: 卡片模式
+            oidc.init(appKey, "oidc-demo2", {
+                style: 'card',
+                columns: 3,
+                target: 'tab',
+                log: true,
+                logLevel: 'info'
+            });
 
-        // 示例3: 列表模式
-        oidc.init(appKey, "oidc-demo3", {
-            style: 'list',
-            target: 'window',
-            log: true,
-            logLevel: 'info'
+            // 示例3: 列表模式
+            oidc.init(appKey, "oidc-demo3", {
+                style: 'list',
+                target: 'window',
+                log: true,
+                logLevel: 'info'
+            });
         });
 
         // 动态初始化

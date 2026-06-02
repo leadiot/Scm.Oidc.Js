@@ -4,7 +4,7 @@
  * 
  * @module oidc/core
  */
-const OidcCore = (function() {
+const OidcCore = (function () {
     // OIDC版本
     const _ver = '1.3.5';
     // OIDC前缀
@@ -114,20 +114,26 @@ const OidcCore = (function() {
         return _base + "/OAuth/" + url;
     }
 
+    function initHttp() {
+        if (!_base) {
+            let protocol = window.location.protocol || 'http:';
+            _base = protocol + '//' + _site;
+            log('url:' + _base);
+        }
+    }
+
     /**
      * 初始化基础配置
      */
     function initConfig(appKey, option) {
         _key = appKey;
-        
+
         if (!option) option = {};
         _option = option;
         _log = !!option.log;
 
         // 启用https
-        const https = (!option.https) ? '' : 's';
-        _base = `http${https}://` + _site;
-        log('url:' + _base);
+        initHttp();
 
         // 应用类型
         _mode = (option.mode || 'web').toLowerCase();
@@ -143,7 +149,7 @@ const OidcCore = (function() {
         prefix: _pre,
         name: _name,
         site: _site,
-        
+
         log,
         getBaseUrl,
         setBaseUrl,
@@ -156,7 +162,8 @@ const OidcCore = (function() {
         getTarget,
         setTarget,
         getOAuthUrl,
-        initConfig
+        initHttp,
+        initConfig,
     };
 })();
 
