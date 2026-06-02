@@ -1,4 +1,4 @@
-/**È«¾ÖÍ³Ò»ÑùÊ½¶¨Òå*/
+/**å…¨å±€ç»Ÿä¸€æ ·å¼å®šä¹‰*/
 .oidc {
     --oidc-border-color: rgba(0, 0, 0, 0.175);
     --oidc-border-width: 1px;
@@ -6,7 +6,7 @@
     --oidc-background-color: #fff;
 }
 
-/**ÍâÁ´Á´½Ó°´Å¥Ê¹ÓÃÑùÊ½*/
+/**å¤–é“¾é“¾æ¥æŒ‰é’®ä½¿ç”¨æ ·å¼*/
 .oidc-link {
     padding: 8px 15px;
     color: #ffffff;
@@ -19,7 +19,7 @@
     text-decoration: none;
 }
 
-/**¶Ô»°¿òÑùÊ½*/
+/**å¯¹è¯æ¡†æ ·å¼*/
 .oidc-dialog {
     position: fixed;
     width: 600px;
@@ -87,7 +87,7 @@
     padding: 5px 10px;
 }
 
-/**¿¨Æ¬ÑùÊ½*/
+/**å¡ç‰‡æ ·å¼*/
 .oidc-card {
     border: var(--oidc-border-width) solid var(--oidc-border-color);
     border-radius: var(--oidc-border-radius);
@@ -112,13 +112,13 @@
     border-top: var(--oidc-border-width) solid var(--oidc-border-color);
 }
 
-/**ÁĞ±íÑùÊ½*/
+/**åˆ—è¡¨æ ·å¼*/
 .oidc-list {
     width: 100%;
     margin: 0 auto;
 }
 
-/**Item·ç¸ñÑùÊ½*/
+/**Itemé£æ ¼æ ·å¼*/
 .oidc-list-item {
     border-radius: var(--oidc-border-radius);
     border: var(--oidc-border-width) solid var(--oidc-border-color);
@@ -168,7 +168,7 @@
         overflow: hidden;
     }
 
-/**Icon·ç¸ñÑùÊ½*/
+/**Iconé£æ ¼æ ·å¼*/
 .oidc-data-icon {
     display: flex;
     flex-direction: row;
@@ -203,7 +203,7 @@
             border-radius: .25rem !important;
         }
 
-/**Card·ç¸ñÑùÊ½*/
+/**Cardé£æ ¼æ ·å¼*/
 .oidc-data-card {
     display: grid;
 }
