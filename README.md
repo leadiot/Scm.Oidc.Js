@@ -3,7 +3,7 @@
 [![Version](https://img.shields.io/badge/version-1.3.5-blue.svg)](https://github.com/your-repo/oidc)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
-一个轻量级、易用的 OpenID Connect 联合登录 JavaScript SDK，支持多种登录方式和前端框架集成。
+OIDC(OpenID Connect)：轻量、易用的多平台联合登录系统。
 
 ## ✨ 特性
 
@@ -16,8 +16,18 @@
 - 📦 **模块化设计** - AMD、CommonJS、浏览器全局变量多种引入方式
 - 🔧 **高度可配置** - 丰富的配置选项满足不同场景需求
 
+## 📸 截图预览
+
+### 网页端登录界面
+![网页端登录界面](./screenshots/web-login.png)
+
+### App端登录界面
+![App端登录界面](./screenshots/app-login.png)
+
+更多截图请查看 [screenshots 目录](./screenshots/)
+
 ## 📝 使用示例
-[示例代码](https://www.oidc.org.cn/OAuth)
+[演示效果](https://www.oidc.org.cn/OAuth)
 
 ## 📦 安装
 

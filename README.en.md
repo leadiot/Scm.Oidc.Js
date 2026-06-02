@@ -1,9 +1,10 @@
-# OIDC Federated Login SDK
+# OIDC SDK
 
 [![Version](https://img.shields.io/badge/version-1.3.5-blue.svg)](https://github.com/your-repo/oidc)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
-A lightweight and easy-to-use OpenID Connect federated login JavaScript SDK that supports multiple login methods and frontend framework integrations.
+
+A lightweight and easy-to-use multi-platform federated login system based on OpenID Connect (OIDC).
 
 ## ✨ Features
 
@@ -16,7 +17,17 @@ A lightweight and easy-to-use OpenID Connect federated login JavaScript SDK that
 - 📦 **Modular Design** - AMD, CommonJS, browser global variable multiple import methods
 - 🔧 **Highly Configurable** - Rich configuration options to meet different scenario requirements
 
-## 📦 Installation
+## � Screenshots Preview
+
+### Web Login Interface
+![Web Login Interface](./screenshots/web-login.png)
+
+### App Login Interface
+![App Login Interface](./screenshots/app-login.png)
+
+For more screenshots, please check the [screenshots directory](./screenshots/)
+
+## �📦 Installation
 
 ### Direct Import
 
