@@ -90,7 +90,7 @@ A lightweight and easy-to-use OpenID Connect federated login JavaScript SDK that
 const { createApp } = Vue;
 
 const app = createApp({
-    template: '<OidcLogin app-key="your-app-key" @success="onSuccess" />',
+    template: '<Oidc app-key="your-app-key" @success="onSuccess" />',
     methods: {
         onSuccess(user) {
             console.log('Login successful:', user);
@@ -150,7 +150,7 @@ Vue.use(oidcVue);
 
 new Vue({
     el: '#app',
-    template: '<oidc-login app-key="your-app-key" @success="onSuccess" />',
+    template: '<oidc app-key="your-app-key" @success="onSuccess" />',
     methods: {
         onSuccess(user) {
             console.log('Login successful:', user);
@@ -264,7 +264,7 @@ oidc.endListen();
 ### Vue Component Props
 
 ```html
-<OidcLogin
+<Oidc
     app-key="your-app-key"
     mode="web"
     view="list"

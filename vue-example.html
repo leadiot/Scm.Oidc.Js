@@ -125,7 +125,7 @@
             <pre><code>const { createApp } = Vue;
 
 const app = createApp({
-    template: '&lt;OidcLogin app-key="your-app-key" @success="onSuccess" /&gt;',
+    template: '&lt;Oidc app-key="your-app-key" @success="onSuccess" /&gt;',
     methods: {
         onSuccess(user) {
             console.log('登录成功:', user);
@@ -204,12 +204,12 @@ app.mount('#app');</code></pre>
             <h2>Vue 2 使用方式</h2>
 
             <h3>方式一：使用插件</h3>
-            <pre><code>// Vue 2 会自动检测并注册为 oidc-login 组件
+            <pre><code>// Vue 2 会自动检测并注册为 oidc 组件
 Vue.use(oidcVue);
 
 new Vue({
     el: '#app',
-    template: '&lt;oidc-login app-key="your-app-key" @success="onSuccess" /&gt;',
+    template: '&lt;oidc app-key="your-app-key" @success="onSuccess" /&gt;',
     methods: {
         onSuccess(user) {
             console.log('登录成功:', user);
@@ -242,7 +242,7 @@ new Vue({
 
         <div class="section">
             <h2>组件属性 (Props)</h2>
-            <pre><code>&lt;OidcLogin
+            <pre><code>&lt;Oidc
     app-key="your-app-key"        // 必填：应用Key
     mode="web"                     // 模式：web | spa
     view="list"                    // 视图：list | none

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue 组件简单测试</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        .test-result {
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        .error {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+    <h1>Vue 组件测试</h1>
+    
+    <div id="test1" class="test-result">测试 1: 检查 oidc 对象...</div>
+    <div id="test2" class="test-result">测试 2: 检查 oidcVue 插件...</div>
+    <div id="test3" class="test-result">测试 3: 检查组件定义...</div>
+    <div id="test4" class="test-result">测试 4: 检查 useVue 方法...</div>
+    <div id="test5" class="test-result">测试 5: 创建 Vue 应用...</div>
+    
+    <div id="app"></div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="oidc.js"></script>
+    <script src="oidc.vue.js"></script>
+    <script>
+        // 测试 1: 检查 oidc 对象
+        const test1 = document.getElementById('test1');
+        if (typeof oidc !== 'undefined') {
+            test1.className = 'test-result success';
+            test1.textContent = '✅ 测试 1 通过: oidc 对象存在';
+        } else {
+            test1.className = 'test-result error';
+            test1.textContent = '❌ 测试 1 失败: oidc 对象不存在';
+        }
+
+        // 测试 2: 检查 oidcVue 插件
+        const test2 = document.getElementById('test2');
+        if (typeof oidcVue !== 'undefined') {
+            test2.className = 'test-result success';
+            test2.textContent = '✅ 测试 2 通过: oidcVue 插件存在';
+        } else {
+            test2.className = 'test-result error';
+            test2.textContent = '❌ 测试 2 失败: oidcVue 插件不存在';
+        }
+
+        // 测试 3: 检查组件定义
+        const test3 = document.getElementById('test3');
+        try {
+            const component = oidcVue.getVueComponent(Vue);
+            if (component.name === 'Oidc') {
+                test3.className = 'test-result success';
+                test3.textContent = `✅ 测试 3 通过: 组件名称正确 (${component.name})`;
+            } else {
+                test3.className = 'test-result error';
+                test3.textContent = `❌ 测试 3 失败: 组件名称错误 (期望: Oidc, 实际: ${component.name})`;
+            }
+        } catch (error) {
+            test3.className = 'test-result error';
+            test3.textContent = `❌ 测试 3 失败: ${error.message}`;
+        }
+
+        // 测试 4: 检查 useVue 方法
+        const test4 = document.getElementById('test4');
+        try {
+            if (typeof oidcVue.useVue === 'function') {
+                const api = oidcVue.useVue();
+                if (api && typeof api.init === 'function') {
+                    test4.className = 'test-result success';
+                    test4.textContent = '✅ 测试 4 通过: useVue 方法正常工作';
+                } else {
+                    test4.className = 'test-result error';
+                    test4.textContent = '❌ 测试 4 失败: useVue 返回的对象不正确';
+                }
+            } else {
+                test4.className = 'test-result error';
+                test4.textContent = '❌ 测试 4 失败: useVue 不是函数';
+            }
+        } catch (error) {
+            test4.className = 'test-result error';
+            test4.textContent = `❌ 测试 4 失败: ${error.message}`;
+        }
+
+        // 测试 5: 创建 Vue 应用
+        const test5 = document.getElementById('test5');
+        try {
+            const app = Vue.createApp({
+                template: '<div>Vue 应用创建成功！</div>'
+            });
+            app.mount('#app');
+            test5.className = 'test-result success';
+            test5.textContent = '✅ 测试 5 通过: Vue 应用创建成功';
+        } catch (error) {
+            test5.className = 'test-result error';
+            test5.textContent = `❌ 测试 5 失败: ${error.message}`;
+        }
+    </script>
+</body>
+</html>

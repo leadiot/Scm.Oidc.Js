@@ -25,7 +25,7 @@
         getVueComponent: function (vue) {
             var self = oidc;
             return {
-                name: 'OidcLogin',
+                name: 'Oidc',
                 props: {
                     appKey: {
                         type: String,
@@ -239,10 +239,10 @@
             var globalOptions = options || {};
 
             if (app.version && app.version.startsWith('2.')) {
-                app.component('oidc-login', self.getVueComponent(app));
+                app.component('oidc', self.getVueComponent(app));
                 app.prototype.$oidc = oidc;
             } else {
-                app.component('OidcLogin', self.getVueComponent(app));
+                app.component('Oidc', self.getVueComponent(app));
                 app.config.globalProperties.$oidc = oidc;
                 app.provide('oidc', oidc);
             }
@@ -259,7 +259,7 @@
          * @returns {Object} Vue应用实例
          */
         createVueApp: function (Vue, option) {
-            var self = oidc;
+            var self = this;
             var appKey = option.appKey;
             var containerId = option.containerId || 'oidc-app';
 

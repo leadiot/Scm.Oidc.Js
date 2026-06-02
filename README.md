@@ -90,7 +90,7 @@
 const { createApp } = Vue;
 
 const app = createApp({
-    template: '<OidcLogin app-key="your-app-key" @success="onSuccess" />',
+    template: '<Oidc app-key="your-app-key" @success="onSuccess" />',
     methods: {
         onSuccess(user) {
             console.log('登录成功:', user);
@@ -150,7 +150,7 @@ Vue.use(oidcVue);
 
 new Vue({
     el: '#app',
-    template: '<oidc-login app-key="your-app-key" @success="onSuccess" />',
+    template: '<oidc app-key="your-app-key" @success="onSuccess" />',
     methods: {
         onSuccess(user) {
             console.log('登录成功:', user);
@@ -264,7 +264,7 @@ oidc.endListen();
 ### Vue 组件属性
 
 ```html
-<OidcLogin
+<Oidc
     app-key="your-app-key"
     mode="web"
     view="list"
