@@ -6,8 +6,6 @@ yarn.lock
 # 构建输出
 dist/
 build/
-*.min.js
-*.min.css
 
 # 日志
 logs/
