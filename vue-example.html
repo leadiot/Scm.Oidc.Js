@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OIDC - Vue 示例</title>
+    <link rel="stylesheet" href="oidc.css">
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .section {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        h2 {
+            color: #1e293b;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 12px;
+        }
+        pre {
+            background: #f8fafc;
+            border-radius: 8px;
+            padding: 16px;
+            overflow-x: auto;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        code {
+            font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
+        }
+        .demo-area {
+            min-height: 200px;
+            border: 2px dashed #e2e8f0;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #94a3b8;
+            padding: 20px;
+        }
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #64748b;
+        }
+        .osp-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 16px;
+        }
+        .osp-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 16px;
+            background: #f8fafc;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .osp-item:hover {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            transform: translateY(-2px);
+        }
+        .osp-item img {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+        .osp-item span {
+            font-size: 12px;
+            color: #475569;
+        }
+        .user-info {
+            text-align: center;
+            padding: 40px;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(5, 150, 105, 0.1) 100%);
+            border-radius: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="section">
+            <h1>OIDC Vue 集成示例</h1>
+            <p>本文档展示如何在 Vue 2 和 Vue 3 项目中集成 OIDC 联合登录组件。</p>
+        </div>
+
+        <div class="section">
+            <h2>安装方式</h2>
+            <pre><code>&lt;!-- 1. 引入 OIDC 基础库 --&gt;
+&lt;script src="oidc.js"&gt;&lt;/script&gt;
+&lt;link rel="stylesheet" href="oidc.css"&gt;
+
+&lt;!-- 2. 引入 Vue --&gt;
+&lt;script src="https://unpkg.com/vue@3/dist/vue.global.js"&gt;&lt;/script&gt;
+
+&lt;!-- 3. 引入 OIDC Vue 集成模块（必须在 Vue 之后引入）--&gt;
+&lt;script src="oidc.vue.js"&gt;&lt;/script&gt;</code></pre>
+        </div>
+
+        <div class="section">
+            <h2>Vue 3 使用方式</h2>
+
+            <h3>方式一：使用插件（推荐）</h3>
+            <pre><code>const { createApp } = Vue;
+
+const app = createApp({
+    template: '&lt;OidcLogin app-key="your-app-key" @success="onSuccess" /&gt;',
+    methods: {
+        onSuccess(user) {
+            console.log('登录成功:', user);
+        }
+    }
+});
+
+// 安装 OIDC Vue 插件
+app.use(oidcVue);
+
+app.mount('#app');</code></pre>
+
+            <h3>方式二：使用组合式 API</h3>
+            <pre><code>const { createApp, ref, onMounted, onUnmounted } = Vue;
+
+const app = createApp({
+    setup() {
+        // 使用 OIDC 组合式函数
+        const { ospList, loading, init, login, dispose } = oidcVue.useVue();
+
+        onMounted(() => {
+            // 初始化 OIDC
+            init('your-app-key', {
+                mode: 'spa',
+                target: 'dialog',
+                success: (user) => {
+                    console.log('登录成功:', user);
+                }
+            });
+        });
+
+        onUnmounted(() => {
+            // 清理资源
+            dispose();
+        });
+
+        return {
+            ospList,
+            loading,
+            login
+        };
+    },
+    template: `
+        &lt;div&gt;
+            &lt;div v-if="loading"&gt;加载中...&lt;/div&gt;
+            &lt;div v-else&gt;
+                &lt;button v-for="osp in ospList"
+                        :key="osp.code"
+                        @click="login(osp.code)"&gt;
+                    {{ osp.name }}
+                &lt;/button&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    `
+});
+
+app.mount('#app');</code></pre>
+
+            <h3>方式三：全局属性访问</h3>
+            <pre><code>const app = createApp({
+    mounted() {
+        // 通过全局属性访问
+        this.$oidc.init('your-app-key', 'container-id', {
+            success: (user) => {
+                console.log('登录成功:', user);
+            }
+        });
+    }
+});
+
+app.use(oidcVue);
+app.mount('#app');</code></pre>
+        </div>
+
+        <div class="section">
+            <h2>Vue 2 使用方式</h2>
+
+            <h3>方式一：使用插件</h3>
+            <pre><code>// Vue 2 会自动检测并注册为 oidc-login 组件
+Vue.use(oidcVue);
+
+new Vue({
+    el: '#app',
+    template: '&lt;oidc-login app-key="your-app-key" @success="onSuccess" /&gt;',
+    methods: {
+        onSuccess(user) {
+            console.log('登录成功:', user);
+        }
+    }
+});</code></pre>
+
+            <h3>方式二：手动注册组件</h3>
+            <pre><code>Vue.component('my-oidc', oidcVue.getVueComponent(Vue));
+
+new Vue({
+    el: '#app',
+    template: '&lt;my-oidc app-key="your-app-key" /&gt;'
+});</code></pre>
+
+            <h3>方式三：通过原型访问</h3>
+            <pre><code>Vue.use(oidcVue);
+
+new Vue({
+    el: '#app',
+    mounted() {
+        this.$oidc.init('your-app-key', 'container-id', {
+            mode: 'web',
+            style: 'card',
+            columns: 3
+        });
+    }
+});</code></pre>
+        </div>
+
+        <div class="section">
+            <h2>组件属性 (Props)</h2>
+            <pre><code>&lt;OidcLogin
+    app-key="your-app-key"        // 必填：应用Key
+    mode="web"                     // 模式：web | spa
+    view="list"                    // 视图：list | none
+    style="item"                   // 样式：item | card | icon
+    target="link"                  // 打开方式：link | tab | window | dialog
+    https="false"                  // 是否使用HTTPS
+    show-card="true"               // 是否显示卡片容器
+    show-head="false"              // 是否显示头部
+    head-html="&lt;h3&gt;登录&lt;/h3&gt;"     // 头部HTML
+    show-foot="false"              // 是否显示底部
+    foot-html="&lt;p&gt;OIDC&lt;/p&gt;"      // 底部HTML
+    align="start"                  // 图标对齐：start | center | end
+    columns="1"                    // 卡片列数
+    response-type="code"           // 响应类型
+    redirect-uri=""                // 回调地址
+    state=""                       // 自定义状态
+    scope=""                       // 授权范围
+    @success="onSuccess"           // 登录成功事件
+    @error="onError"               // 错误事件
+/&gt;</code></pre>
+        </div>
+
+        <div class="section">
+            <h2>组合式 API 返回值</h2>
+            <pre><code>const {
+    ospList,      // Ref&lt;Array&gt; - OSP列表
+    loading,      // Ref&lt;Boolean&gt; - 加载状态
+    error,        // Ref&lt;String|null&gt; - 错误信息
+    initialized,  // Ref&lt;Boolean&gt; - 是否已初始化
+    init,         // Function - 初始化方法
+    login,        // Function - 登录方法（跳转）
+    loginA,       // Function - SPA模式登录A
+    loginB,       // Function - SPA模式登录B
+    dispose,      // Function - 清理资源
+    toUri,        // Function - 跳转到授权URL
+    version       // String - 版本号
+} = oidcVue.useVue();</code></pre>
+        </div>
+
+        <div class="section">
+            <h2>完整示例</h2>
+            <div id="demo-vue3" class="demo-area">
+                Vue 3 示例将在此加载...
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="oidc.js"></script>
+    <script src="oidc.vue.js"></script>
+    <script>
+        // Vue 3 完整示例
+        var app = oidcVue.createVueApp(Vue, {
+            appKey: 'demo-app-key',
+            mode: 'spa',
+            target: 'dialog',
+            style: 'card',
+            columns: 4,
+            success: function(user) {
+                console.log('登录成功:', user);
+            }
+        });
+
+        app.mount('#demo-vue3');
+    </script>
+</body>
+</html>
