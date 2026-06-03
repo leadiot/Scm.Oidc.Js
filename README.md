@@ -466,6 +466,7 @@ Scm.Oidc.Js/
 ## 📮 联系方式
 
 - 官网：https://www.oidc.org.cn
+- QQ群：121750370
 - 问题反馈：提交 Issue
 
 ## 🙏 致谢
