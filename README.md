@@ -1,33 +1,50 @@
-# OIDC 联合登录 SDK
+# 🔐 Scm.Oidc - 多平台联合登录 SDK
 
-[![Version](https://img.shields.io/badge/version-1.3.5-blue.svg)](https://github.com/your-repo/oidc)
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+> 基于 OpenID Connect 的轻量、易用的多平台联合登录解决方案
 
-OIDC(OpenID Connect)：轻量、易用的多平台联合登录系统。
+![登录界面](screenshots/home.png)
 
-## ✨ 特性
+---
 
-- 🚀 **轻量无依赖** - 纯 JavaScript 实现，无需第三方依赖
-- 🎨 **多种 UI 样式** - 支持图标、卡片、列表等多种展示形式
-- 🔐 **多种登录方式** - 支持微信、手机、邮箱等多种 OAuth 登录
-- 📱 **双模式支持** - Web 模式和 SPA（单页应用）模式
-- 🖥️ **多打开方式** - 支持页面跳转、新标签页、弹窗、对话框
-- 🎯 **框架集成** - 提供 Vue 2/3 完整支持
-- 📦 **模块化设计** - AMD、CommonJS、浏览器全局变量多种引入方式
-- 🔧 **高度可配置** - 丰富的配置选项满足不同场景需求
+## ✨ 功能特点
 
-## 📸 截图预览
+| 特性 | 说明 |
+|------|------|
+| **多协议支持** | 同时支持 OAuth1.0、OAuth2.0 协议 |
+| **轻量无依赖** | 纯 JavaScript 实现，无需第三方依赖 |
+| **多种 UI 样式** | 支持图标、卡片、列表等多种展示形式 |
+| **多种登录方式** | 支持微信、手机、邮箱等多种 OAuth 登录 |
+| **双模式支持** | Web 模式和 SPA（单页应用）模式 |
+| **多打开方式** | 支持页面跳转、新标签页、弹窗、对话框 |
+| **框架集成** | 提供 Vue 2/3 完整支持 |
+| **模块化设计** | AMD、CommonJS、浏览器全局变量多种引入方式 |
+| **高度可配置** | 丰富的配置选项满足不同场景需求 |
 
-### 网页端登录界面
-![网页端登录界面](./screenshots/web-login.png)
+---
 
-### App端登录界面
-![App端登录界面](./screenshots/app-login.png)
+## 🌍 支持平台
 
-更多截图请查看 [screenshots 目录](./screenshots/)
+### 国内平台
+- 支付宝 · 阿里云 · 微信 · QQ · 微博 · 百度 · 抖音 · 钉钉 · 飞书
+- 华为 · 小米 · 京东 · 美团 · 快手 · 小红书 · WPS · 印象笔记 · 钉钉
+- 360 · 魅族 · OPPO · Vivo · 荣耀 · 开放原子 · DCloud
 
-## 📝 使用示例
-[演示效果](https://www.oidc.org.cn/OAuth)
+### 国际平台
+- Google · Apple · Microsoft · Facebook · X（Twitter）· LinkedIn · GitHub
+- GitLab · Gitee · Bitbucket · StackOverflow · Atlassian · Slack
+- Amazon · Yahoo · Yandex · VK.ru · Ok.ru · Mail.ru · Line
+- Notion · Figma · Linear · Zoom · Discord · Adobe · Dropbox
+- Zoho · Box · Todoist · Tower · Evernote · Coding · Teambition
+
+> 更多平台支持持续更新中...
+
+## 🖼️ 界面预览
+
+| 验证登录界面 | 授权成功界面 |
+|-------------|-------------|
+| ![验证登录](screenshots/login.png) | ![授权成功](screenshots/success.png) |
+
+---
 
 ## 📦 安装
 

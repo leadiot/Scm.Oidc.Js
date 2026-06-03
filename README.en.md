@@ -1,31 +1,52 @@
-# OIDC SDK
+# 🔐 Scm.Oidc - Multi-Platform Federation Login SDK
 
-[![Version](https://img.shields.io/badge/version-1.3.5-blue.svg)](https://github.com/your-repo/oidc)
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+> A lightweight and easy-to-use multi-platform federated login solution based on OpenID Connect
 
+![Login Interface](screenshots/home.png)
 
-A lightweight and easy-to-use multi-platform federated login system based on OpenID Connect (OIDC).
+---
 
 ## ✨ Features
 
-- 🚀 **Lightweight & Zero Dependencies** - Pure JavaScript implementation with no third-party dependencies
-- 🎨 **Multiple UI Styles** - Supports icon, card, list and other display formats
-- 🔐 **Multiple Login Methods** - Supports WeChat, phone, email and other OAuth login methods
-- 📱 **Dual Mode Support** - Web mode and SPA (Single Page Application) mode
-- 🖥️ **Multiple Opening Methods** - Supports page redirect, new tab, popup window, dialog
-- 🎯 **Framework Integration** - Complete Vue 2/3 support
-- 📦 **Modular Design** - AMD, CommonJS, browser global variable multiple import methods
-- 🔧 **Highly Configurable** - Rich configuration options to meet different scenario requirements
+| Feature | Description |
+|---------|-------------|
+| **Multi-protocol Support** | Supports both OAuth1.0 and OAuth2.0 protocols |
+| **Lightweight & Zero Dependencies** | Pure JavaScript implementation with no third-party dependencies |
+| **Multiple UI Styles** | Supports icon, card, list and other display formats |
+| **Multiple Login Methods** | Supports WeChat, phone, email and other OAuth login methods |
+| **Dual Mode Support** | Web mode and SPA (Single Page Application) mode |
+| **Multiple Opening Methods** | Supports page redirect, new tab, popup window, dialog |
+| **Framework Integration** | Complete Vue 2/3 support |
+| **Modular Design** | AMD, CommonJS, browser global variable multiple import methods |
+| **Highly Configurable** | Rich configuration options to meet different scenario requirements |
 
-## � Screenshots Preview
+---
 
-### Web Login Interface
-![Web Login Interface](./screenshots/web-login.png)
+## 🌍 Supported Platforms
 
-### App Login Interface
-![App Login Interface](./screenshots/app-login.png)
+### China Platforms
+- Alipay · Alibaba Cloud · WeChat · QQ · Weibo · Baidu · Douyin · DingTalk · Feishu
+- Huawei · Xiaomi · JD.com · Meituan · Kuaishou · Xiaohongshu · WPS · Evernote
+- 360 · Meizu · OPPO · Vivo · Honor · OpenAtom · DCloud
 
-For more screenshots, please check the [screenshots directory](./screenshots/)
+### International Platforms
+- Google · Apple · Microsoft · Facebook · X (Twitter) · LinkedIn · GitHub
+- GitLab · Gitee · Bitbucket · StackOverflow · Atlassian · Slack
+- Amazon · Yahoo · Yandex · VK.ru · Ok.ru · Mail.ru · Line
+- Notion · Figma · Linear · Zoom · Discord · Adobe · Dropbox
+- Zoho · Box · Todoist · Tower · Evernote · Coding · Teambition
+
+> More platforms coming soon...
+
+---
+
+## 🖼️ Screenshots
+
+| Login | Success |
+|-------------------|---------|
+| ![Verification](screenshots/logi.png) | ![Success](screenshots/success.png) |
+
+---
 
 ## �📦 Installation
 
