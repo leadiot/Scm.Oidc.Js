@@ -374,7 +374,7 @@ oidc.endListen();</pre>
     <script type="text/javascript" src="oidc.js" charset="utf-8"></script>
     <script type="text/javascript">
         var appKey = "08dc5d527578a465";
-        oidc.load(appKey, function (ospList) {
+        oidc.load(appKey, false, function (ospList) {
             // 示例1: 图标模式
             oidc.init(appKey, "oidc-demo1", {
                 style: 'icon',

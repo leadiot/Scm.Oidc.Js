@@ -90,7 +90,7 @@
             log(`日志状态: ${_log}, 日志级别: ${_logLevel}`, 'debug');
 
             // 设置协议和基础URL
-            this.initHttp();
+            this.initHttp(option.https);
 
             // 设置模式
             _mode = (option.mode || 'web').toLowerCase();
@@ -145,12 +145,13 @@
             },
             getOAuthUrl,
             initConfig,
-            initHttp: function () {
+            initHttp: function (https) {
                 if (!_base) {
-                    let protocol = (window.location.protocol || 'http:').toLowerCase();
-                    if (!protocol.startsWith('http')) {
-                        protocol = 'https:';
-                    }
+                    // let protocol = (window.location.protocol || 'http:').toLowerCase();
+                    // if (!protocol.startsWith('http')) {
+                    //     protocol = 'https:';
+                    // }
+                    let protocol = https ? 'https:' : 'http:';
 
                     _base = protocol + '//' + _site;
                     log(`URL初始化: ${_base}`, 'info');
@@ -901,10 +902,10 @@
     // 主入口
     let _ospList = null;
 
-    function load(appKey, callback) {
+    function load(appKey, https, callback) {
         if (!appKey) { Core.log('无效的应用代码！'); return; }
 
-        Core.initHttp();
+        Core.initHttp(https);
 
         Core.setKey(appKey);
         Network.listOsp(function (data) { _ospList = data; if (callback) callback(data); });
