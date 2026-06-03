@@ -1,8 +1,8 @@
 ﻿/**
  * OIDC - 联合登录
  * 
- * Date: 2026-06-02
- * Version: 1.3.5
+ * Date: 2026-06-03
+ * Version: 1.3.6
  * 
  * 模块化重构版本，支持浏览器直接引入和CommonJS模块
  */
@@ -22,7 +22,7 @@
      * Core Module
      */
     const Core = (function () {
-        const _ver = '1.3.5';
+        const _ver = '1.3.6';
         const _site = 'oidc.org.cn';
         let _base = '';
         let _key = '';
