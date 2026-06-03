@@ -1,8 +1,8 @@
 /**
  * OIDC Vue 集成模块
  *
- * Date: 2025-11-22
- * Version: 1.3.4
+ * Date: 2026-06-03
+ * Version: 1.3.6
  *
  * 说明：
  * 此文件提供 OIDC 与 Vue 2/3 的集成支持
@@ -235,7 +235,7 @@
          * @param {Object} options 插件选项
          */
         install: function (app, options) {
-            var self = oidc;
+            var self = this;  // 改为 this，指向 VuePlugin 对象
             var globalOptions = options || {};
 
             if (app.version && app.version.startsWith('2.')) {
@@ -248,7 +248,7 @@
             }
 
             if (globalOptions.appKey) {
-                self.init(globalOptions.appKey, 'oidc-global', globalOptions);
+                oidc.init(globalOptions.appKey, 'oidc-global', globalOptions);
             }
         },
 
